@@ -1,5 +1,6 @@
 import React, {useCallback} from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
+import AppText from './AppText';
 import {colors} from '../constants/colors';
 import EventCard from './EventCard';
 
@@ -20,7 +21,9 @@ const EventList = ({
   if (events.length === 0) {
     return (
       <View style={styles.emptyWrap}>
-        <Text style={styles.emptyText}>{emptyMessage}</Text>
+        <AppText style={styles.emptyText} weight="regular">
+          {emptyMessage}
+        </AppText>
       </View>
     );
   }

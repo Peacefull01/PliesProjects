@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {colors} from '../constants/colors';
@@ -10,7 +10,7 @@ const iconConfig = {
   facebook: {name: 'facebook', bg: colors.facebook, color: colors.white, size: 24},
 };
 
-const SocialButton = ({type, onPress}) => {
+const SocialButton = ({type}) => {
   const config = iconConfig[type];
 
   return (
@@ -21,7 +21,6 @@ const SocialButton = ({type, onPress}) => {
         {backgroundColor: config.bg},
         type === 'apple' && styles.appleBox,
       ]}
-      onPress={onPress}
       activeOpacity={0.7}>
       <FontAwesome5
         name={config.name}
@@ -48,4 +47,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default memo(SocialButton);
+export default SocialButton;

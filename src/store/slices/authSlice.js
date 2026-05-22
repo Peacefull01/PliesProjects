@@ -15,9 +15,9 @@ export const login = createAsyncThunk(
     try {
       return await loginUser(credentials);
     } catch (error) {
-      const message =
-        error instanceof Error ? error.message : 'Login failed';
-      return rejectWithValue(message);
+      return rejectWithValue(
+        error instanceof Error ? error.message : 'Login failed',
+      );
     }
   },
 );
@@ -26,12 +26,6 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    logout: state => {
-      state.user = null;
-      state.token = null;
-      state.isLoggedIn = false;
-      state.error = null;
-    },
     clearError: state => {
       state.error = null;
     },
@@ -55,5 +49,5 @@ const authSlice = createSlice({
   },
 });
 
-export const {logout, clearError} = authSlice.actions;
+export const {clearError} = authSlice.actions;
 export default authSlice.reducer;

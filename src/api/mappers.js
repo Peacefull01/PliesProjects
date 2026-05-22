@@ -1,3 +1,4 @@
+// API images were broken in testing, using placeholders
 const PLACEHOLDER_IMAGES = [
   'https://picsum.photos/seed/plie-event-1/160/160',
   'https://picsum.photos/seed/plie-event-2/160/160',
@@ -50,8 +51,6 @@ const formatDate = (from, to) => {
 export const mapApiUserToUser = apiUser => ({
   id: apiUser.usr_id,
   name: `${apiUser.usr_fname} ${apiUser.usr_lname}`.trim(),
-  firstName: apiUser.usr_fname,
-  lastName: apiUser.usr_lname,
   email: apiUser.usr_email,
 });
 

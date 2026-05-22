@@ -1,26 +1,24 @@
-import React, {memo, useState} from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
-  Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
+import AppText from './AppText';
+import Icon from './Icon';
 import {colors} from '../constants/colors';
+import {fonts} from '../constants/fonts';
 import {cardShadow} from '../utils/shadow';
-import EyeIcon from './EyeIcon';
 
-const Input = ({
-  label,
-  showPasswordToggle = false,
-  secureTextEntry,
-  ...rest
-}) => {
+const Input = ({label, showPasswordToggle = false, secureTextEntry, ...rest}) => {
   const [hidden, setHidden] = useState(secureTextEntry ?? false);
 
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.label}>{label}</Text>
+      <AppText style={styles.label} weight="medium">
+        {label}
+      </AppText>
       <View style={[styles.inputBox, cardShadow]}>
         <TextInput
           style={styles.input}
@@ -33,7 +31,11 @@ const Input = ({
             onPress={() => setHidden(prev => !prev)}
             style={styles.eyeBtn}
             hitSlop={{top: 8, bottom: 8, left: 8, right: 8}}>
-            <EyeIcon visible={!hidden} />
+            <Icon
+              name={hidden ? 'eye-off-outline' : 'eye-outline'}
+              size={20}
+              color={colors.textGray}
+            />
           </TouchableOpacity>
         )}
       </View>
@@ -49,7 +51,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: colors.textDark,
     marginBottom: 6,
-    fontWeight: '500',
   },
   inputBox: {
     flexDirection: 'row',
@@ -62,6 +63,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: 15,
+    fontFamily: fonts.regular,
     color: colors.textDark,
     paddingVertical: 10,
   },
@@ -71,4 +73,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default memo(Input);
+export default Input;

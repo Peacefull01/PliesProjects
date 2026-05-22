@@ -1,10 +1,6 @@
-import React, {memo} from 'react';
-import {
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import React from 'react';
+import {ActivityIndicator, StyleSheet, TouchableOpacity} from 'react-native';
+import AppText from './AppText';
 import {colors} from '../constants/colors';
 
 const Button = ({
@@ -31,9 +27,11 @@ const Button = ({
       {loading ? (
         <ActivityIndicator color={isPrimary ? colors.white : colors.primary} />
       ) : (
-        <Text style={[styles.text, isPrimary ? styles.primaryText : styles.outlineText]}>
+        <AppText
+          weight="semiBold"
+          style={[styles.text, isPrimary ? styles.primaryText : styles.outlineText]}>
           {title}
-        </Text>
+        </AppText>
       )}
     </TouchableOpacity>
   );
@@ -61,7 +59,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 15,
-    fontWeight: '600',
   },
   primaryText: {
     color: colors.white,
@@ -71,4 +68,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default memo(Button);
+export default Button;

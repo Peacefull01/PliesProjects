@@ -1,11 +1,13 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import AppText from '../components/AppText';
 import {colors} from '../constants/colors';
 
 const PlaceholderScreen = ({title}) => (
   <View style={styles.container}>
-    <Text style={styles.text}>{title}</Text>
-    <Text style={styles.hint}>Coming soon in this demo</Text>
+    <AppText style={styles.text} weight="semiBold">
+      {title}
+    </AppText>
   </View>
 );
 
@@ -18,13 +20,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    fontWeight: '600',
     color: colors.textDark,
-  },
-  hint: {
-    marginTop: 8,
-    fontSize: 13,
-    color: colors.textGray,
   },
 });
 

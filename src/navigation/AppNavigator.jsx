@@ -5,6 +5,7 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import Icon from '../components/Icon';
 import {colors} from '../constants/colors';
+import {fonts} from '../constants/fonts';
 import {useAppSelector} from '../hooks/reduxHooks';
 import EventListingScreen from '../screens/EventListingScreen';
 import FavouritesScreen from '../screens/FavouritesScreen';
@@ -27,7 +28,6 @@ const renderTabIcon = (routeName, focused) => {
 
   return (
     <Icon
-      family="ionicons"
       name={iconName}
       size={22}
       color={focused ? colors.black : colors.textGray}
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
   tabLabel: {
     fontSize: 11,
-    fontWeight: '500',
+    fontFamily: fonts.medium,
   },
 });
 

@@ -1,15 +1,14 @@
 import React, {useCallback, useMemo, useState} from 'react';
 import {
-  Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import AppText from '../components/AppText';
 import Button from '../components/Button';
 import Divider from '../components/Divider';
 import Icon from '../components/Icon';
@@ -36,10 +35,6 @@ const LoginScreen = () => {
     dispatch(login({email, password}));
   }, [dispatch, email, password]);
 
-  const handleSocialPress = useCallback(provider => {
-    Alert.alert('Social Login', `${provider} login is not wired in this demo.`);
-  }, []);
-
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
       <KeyboardAvoidingView
@@ -50,14 +45,11 @@ const LoginScreen = () => {
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={styles.scroll}>
           <View style={styles.header}>
-            <Text style={styles.logo}>Pliē</Text>
+            <AppText style={styles.logo} weight="light">
+              Pliē
+            </AppText>
             <View style={styles.imagePlaceholder}>
-              <Icon
-                family="ionicons"
-                name="image-outline"
-                size={80}
-                color="#666666"
-              />
+              <Icon name="image-outline" size={80} color="#666666" />
             </View>
           </View>
 
@@ -81,10 +73,16 @@ const LoginScreen = () => {
             />
 
             <TouchableOpacity style={styles.forgotWrap}>
-              <Text style={styles.forgotText}>Forgot Password?</Text>
+              <AppText style={styles.forgotText} weight="light">
+                Forgot Password?
+              </AppText>
             </TouchableOpacity>
 
-            {error ? <Text style={styles.errorText}>{error}</Text> : null}
+            {error ? (
+              <AppText style={styles.errorText} weight="medium">
+                {error}
+              </AppText>
+            ) : null}
 
             <View style={styles.signInRow}>
               <Button
@@ -95,30 +93,25 @@ const LoginScreen = () => {
               />
             </View>
 
-            <Text style={styles.signUpText}>
+            <AppText style={styles.signUpText} weight="regular">
               Not a member?{' '}
-              <Text style={styles.signUpLink}>Sign Up Here</Text>
-            </Text>
+              <AppText style={styles.signUpLink} weight="medium">
+                Sign Up Here
+              </AppText>
+            </AppText>
 
             <Divider label="or Sign In with:" />
 
             <View style={styles.socialRow}>
-              <SocialButton
-                type="google"
-                onPress={() => handleSocialPress('Google')}
-              />
-              <SocialButton
-                type="apple"
-                onPress={() => handleSocialPress('Apple')}
-              />
-              <SocialButton
-                type="facebook"
-                onPress={() => handleSocialPress('Facebook')}
-              />
+              <SocialButton type="google" />
+              <SocialButton type="apple" />
+              <SocialButton type="facebook" />
             </View>
 
             <TouchableOpacity style={styles.guestWrap}>
-              <Text style={styles.guestText}>Enter as Guest</Text>
+              <AppText style={styles.guestText} weight="light">
+                Enter as Guest
+              </AppText>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -147,7 +140,6 @@ const styles = StyleSheet.create({
   },
   logo: {
     fontSize: 42,
-    fontWeight: '300',
     color: colors.black,
     letterSpacing: 1,
     marginBottom: 24,
@@ -186,7 +178,6 @@ const styles = StyleSheet.create({
   signUpLink: {
     textDecorationLine: 'underline',
     color: colors.textDark,
-    fontWeight: '500',
   },
   socialRow: {
     flexDirection: 'row',

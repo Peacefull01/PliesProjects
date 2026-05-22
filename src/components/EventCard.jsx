@@ -1,51 +1,40 @@
-import React, {memo, useCallback} from 'react';
-import {
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React, {useCallback} from 'react';
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import AppText from './AppText';
+import Icon from './Icon';
 import {colors} from '../constants/colors';
 import {cardShadow} from '../utils/shadow';
-import Icon from './Icon';
 import Tag from './Tag';
 
-const EventCard = ({event, onToggleFavorite, onPress}) => {
+const EventCard = ({event, onToggleFavorite}) => {
   const handleFavorite = useCallback(() => {
     onToggleFavorite(event.id);
   }, [event.id, onToggleFavorite]);
 
-  const handlePress = useCallback(() => {
-    onPress?.(event.id);
-  }, [event.id, onPress]);
-
   return (
-    <TouchableOpacity
-      style={[styles.card, cardShadow]}
-      onPress={handlePress}
-      activeOpacity={0.9}>
+    <TouchableOpacity style={[styles.card, cardShadow]} activeOpacity={0.9}>
       <Image source={{uri: event.imageUrl}} style={styles.image} />
 
       <View style={styles.content}>
         <View style={styles.topRow}>
-          <Text style={styles.title} numberOfLines={1}>
+          <AppText style={styles.title} weight="bold" numberOfLines={1}>
             {event.title}
-          </Text>
-          <Icon
-            family="ionicons"
-            name="chevron-forward"
-            size={18}
-            color={colors.textLight}
-          />
+          </AppText>
+          <Icon name="chevron-forward" size={18} color={colors.textLight} />
         </View>
 
         <View style={styles.metaRow}>
-          <Text style={styles.date}>{event.date}</Text>
-          <Text style={styles.location}>{event.location}</Text>
+          <AppText style={styles.date} weight="medium">
+            {event.date}
+          </AppText>
+          <AppText style={styles.location} weight="regular">
+            {event.location}
+          </AppText>
         </View>
 
-        <Text style={styles.price}>{event.price}</Text>
+        <AppText style={styles.price} weight="regular">
+          {event.price}
+        </AppText>
 
         <View style={styles.bottomRow}>
           <View style={styles.tags}>
@@ -56,19 +45,13 @@ const EventCard = ({event, onToggleFavorite, onPress}) => {
 
           <View style={styles.actions}>
             <TouchableOpacity style={styles.actionBtn} hitSlop={8}>
-              <Icon
-                family="ionicons"
-                name="share-outline"
-                size={18}
-                color={colors.textGray}
-              />
+              <Icon name="share-outline" size={18} color={colors.textGray} />
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.actionBtn}
               onPress={handleFavorite}
               hitSlop={8}>
               <Icon
-                family="ionicons"
                 name={event.isFavorite ? 'heart' : 'heart-outline'}
                 size={20}
                 color={event.isFavorite ? colors.primary : colors.textGray}
@@ -107,7 +90,6 @@ const styles = StyleSheet.create({
   title: {
     flex: 1,
     fontSize: 15,
-    fontWeight: '700',
     color: colors.black,
     marginRight: 8,
   },
@@ -119,7 +101,6 @@ const styles = StyleSheet.create({
   date: {
     fontSize: 12,
     color: colors.dateGreen,
-    fontWeight: '500',
   },
   location: {
     fontSize: 11,
@@ -150,4 +131,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default memo(EventCard);
+export default EventCard;

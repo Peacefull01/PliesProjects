@@ -1,9 +1,15 @@
-import {API_BASE_URL} from '@env';
+import {API_BASE_URL} from '../config/env';
+
+const getFullUrl = path => {
+  const base = API_BASE_URL.replace(/\/$/, '');
+  const route = path.startsWith('/') ? path : `/${path}`;
+  return `${base}${route}`;
+};
 
 export async function apiRequest(path, options = {}) {
   const {token, headers, ...rest} = options;
 
-  const response = await fetch(`${API_BASE_URL}${path}`, {
+  const response = await fetch(getFullUrl(path), {
     ...rest,
     headers: {
       Accept: 'application/json',
@@ -17,6 +23,10 @@ export async function apiRequest(path, options = {}) {
 
   if (!response.ok) {
     throw new Error(json?.message || `Request failed (${response.status})`);
+  }
+
+  if (json.success === false) {
+    throw new Error(json.message || 'Request failed');
   }
 
   return json;

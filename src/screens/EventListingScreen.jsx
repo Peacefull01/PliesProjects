@@ -2,10 +2,10 @@ import React, {useCallback, useEffect, useMemo} from 'react';
 import {
   ActivityIndicator,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import AppText from '../components/AppText';
 import EventList from '../components/EventList';
 import {colors} from '../constants/colors';
 import {useAppDispatch, useAppSelector} from '../hooks/reduxHooks';
@@ -32,8 +32,12 @@ const EventListingScreen = () => {
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
       <View style={styles.header}>
-        <Text style={styles.greeting}>{greeting}</Text>
-        <Text style={styles.subtitle}>Are you ready to dance?</Text>
+        <AppText style={styles.greeting} weight="bold">
+          {greeting}
+        </AppText>
+        <AppText style={styles.subtitle} weight="regular">
+          Are you ready to dance?
+        </AppText>
       </View>
 
       {loading && list.length === 0 ? (
@@ -63,7 +67,6 @@ const styles = StyleSheet.create({
   },
   greeting: {
     fontSize: 28,
-    fontWeight: '700',
     color: colors.black,
   },
   subtitle: {

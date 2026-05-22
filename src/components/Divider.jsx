@@ -1,11 +1,14 @@
-import React, {memo} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {StyleSheet, View} from 'react-native';
+import AppText from './AppText';
 import {colors} from '../constants/colors';
 
 const Divider = ({label}) => (
   <View style={styles.row}>
     <View style={styles.line} />
-    <Text style={styles.label}>{label}</Text>
+    <AppText style={styles.label} weight="regular">
+      {label}
+    </AppText>
     <View style={styles.line} />
   </View>
 );
@@ -28,4 +31,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default memo(Divider);
+export default Divider;

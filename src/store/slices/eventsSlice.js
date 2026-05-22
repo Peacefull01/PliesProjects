@@ -11,7 +11,6 @@ export const loadEvents = createAsyncThunk(
   'events/loadEvents',
   async (_, {getState, rejectWithValue}) => {
     const {token} = getState().auth;
-
     if (!token) {
       return rejectWithValue('Please login first');
     }
@@ -19,23 +18,10 @@ export const loadEvents = createAsyncThunk(
     try {
       return await fetchEvents(token);
     } catch (error) {
-      const message =
-        error instanceof Error ? error.message : 'Could not load events';
-      return rejectWithValue(message);
+      return rejectWithValue(
+        error instanceof Error ? error.message : 'Could not load events',
+      );
     }
-  },
-);
-
-export const toggleFavorite = createAsyncThunk(
-  'events/toggleFavorite',
-  async (eventId, {getState, rejectWithValue}) => {
-    const event = getState().events.list.find(item => item.id === eventId);
-
-    if (!event) {
-      return rejectWithValue('Event not found');
-    }
-
-    return {eventId, isFavorite: !event.isFavorite};
   },
 );
 
@@ -43,9 +29,12 @@ const eventsSlice = createSlice({
   name: 'events',
   initialState,
   reducers: {
-    clearEvents: state => {
-      state.list = [];
-      state.error = null;
+    // heart toggle is local only (no API in brief)
+    toggleFavorite: (state, action) => {
+      const event = state.list.find(item => item.id === action.payload);
+      if (event) {
+        event.isFavorite = !event.isFavorite;
+      }
     },
   },
   extraReducers: builder => {
@@ -61,16 +50,9 @@ const eventsSlice = createSlice({
       .addCase(loadEvents.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || 'Failed to load';
-      })
-      .addCase(toggleFavorite.fulfilled, (state, action) => {
-        const {eventId, isFavorite} = action.payload;
-        const event = state.list.find(item => item.id === eventId);
-        if (event) {
-          event.isFavorite = isFavorite;
-        }
       });
   },
 });
 
-export const {clearEvents} = eventsSlice.actions;
+export const {toggleFavorite} = eventsSlice.actions;
 export default eventsSlice.reducer;

@@ -1,16 +1,21 @@
 import React, {useCallback, useMemo} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import AppText from '../components/AppText';
 import EventList from '../components/EventList';
 import {colors} from '../constants/colors';
 import {useAppDispatch, useAppSelector} from '../hooks/reduxHooks';
-import {selectFavoriteEvents} from '../store/selectors';
 import {toggleFavorite} from '../store/slices/eventsSlice';
 
 const FavouritesScreen = () => {
   const dispatch = useAppDispatch();
-  const favoriteEvents = useAppSelector(selectFavoriteEvents);
+  const events = useAppSelector(state => state.events.list);
   const userName = useAppSelector(state => state.auth.user?.name ?? 'Guest');
+
+  const favoriteEvents = useMemo(
+    () => events.filter(event => event.isFavorite),
+    [events],
+  );
 
   const title = useMemo(() => `Hello ${userName}!`, [userName]);
 
@@ -24,14 +29,18 @@ const FavouritesScreen = () => {
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
       <View style={styles.header}>
-        <Text style={styles.greeting}>{title}</Text>
-        <Text style={styles.subtitle}>Your favourite events</Text>
+        <AppText style={styles.greeting} weight="bold">
+          {title}
+        </AppText>
+        <AppText style={styles.subtitle} weight="regular">
+          Your favourite events
+        </AppText>
       </View>
 
       <EventList
         events={favoriteEvents}
         onToggleFavorite={handleToggleFavorite}
-        emptyMessage="No favourites yet. Tap the heart on any event to save it here."
+        emptyMessage="No favourites yet"
       />
     </SafeAreaView>
   );
@@ -49,7 +58,6 @@ const styles = StyleSheet.create({
   },
   greeting: {
     fontSize: 28,
-    fontWeight: '700',
     color: colors.black,
   },
   subtitle: {
