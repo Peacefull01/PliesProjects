@@ -1,0 +1,18 @@
+export const colors = {
+  primary: '#21D393',
+  background: '#F5F5F5',
+  headerGray: '#D9D9D9',
+  white: '#FFFFFF',
+  black: '#000000',
+  textDark: '#333333',
+  textGray: '#8E8E93',
+  textLight: '#A0A0A0',
+  placeholder: '#C4C4C4',
+  border: '#E5E5E5',
+  dateGreen: '#21D393',
+  tagBg: '#F2F2F7',
+  tagText: '#555555',
+  facebook: '#1877F2',
+  shadow: '#000000',
+  error: '#E53935',
+};
